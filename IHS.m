@@ -1,0 +1,17 @@
+clc;
+clear;
+MS_path ='\QuickBird_Data\MS.mat';
+Pan_path = '\QuickBird_Data\PAN.mat';
+load([pwd MS_path]);
+load([pwd Pan_path]);
+rgb(:,:,1) = MS(:,:,1);
+rgb(:,:,2) = MS(:,:,2);
+rgb(:,:,3) = MS(:,:,3);
+Panchormatic =double(PAN);
+Panchormatic = mapminmax(Panchormatic, 0, 1);
+rgb_1 = imresize(rgb,4);
+hsi = rgb2hsi(rgb_1);
+hsi(:,:,3) = Panchormatic;
+out_come = hsi2rgb(hsi);
+imshow(out_come);
+figure,imshow(rgb);
